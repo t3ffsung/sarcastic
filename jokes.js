@@ -12,8 +12,3 @@ const jokes = [
 function getRandomJoke() {
   return jokes[Math.floor(Math.random() * jokes.length)];
 }
-
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close();
-  clients.openWindow('https://google.com'); // or any relevant URL
-});
