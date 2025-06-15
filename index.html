@@ -9,15 +9,27 @@
 </head>
 <body>
   <h1>Sarcastic Jokes App</h1>
-  <p>Jokes will be sent every 5 minutes via notification 😎</p>
+  <p>New sarcastic joke every 5 minutes via notification 😎</p>
   <script src="jokes.js"></script>
   <script>
-    // Ask for notification permission
     if ('Notification' in window && navigator.serviceWorker) {
       Notification.requestPermission().then(permission => {
         if (permission === "granted") {
-          navigator.serviceWorker.register("service-worker.js")
-            .then(() => console.log("Service Worker Registered"));
+          navigator.serviceWorker.register("service-worker.js").then(reg => {
+            setInterval(() => {
+              const joke = getRandomJoke();
+              reg.showNotification("😂 Sarcastic Joke", {
+                body: joke,
+                icon: "icon.png"
+              });
+            }, 300000);
+
+            const joke = getRandomJoke();
+            reg.showNotification("😂 Sarcastic Joke", {
+              body: joke,
+              icon: "icon.png"
+            });
+          });
         }
       });
     }
